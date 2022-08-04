@@ -1,0 +1,10 @@
+{
+  "devToolsPort": 19002,
+  "expoServerPort": null,
+  "packagerPort": 19000,
+  "expoServerNgrokUrl": "https://3s-8xv.isdiscodead.nomadweather.exp.direct",
+  "packagerNgrokUrl": "https://packager.3s-8xv.isdiscodead.nomadweather.exp.direct",
+  "ngrokPid": 72695,
+  "webpackServerPort": null,
+  "packagerPid": null
+}
