@@ -23,10 +23,17 @@ export default function App() {
       return; 
     } 
 
+    // toDos를 직접 수정 X 
+    // 비어있는 object + target Object + 새로운 투두 
+    const newToDos = Object.assign( {}, toDos, {[Date.now()] : {text, work : working}} );
+
     // save todo 
+    setToDos(newToDos);
 
     setText(""); // 입력 창 비워주기
   }
+
+  console.log(toDos);
 
   return (
     <View style={styles.container}>
