@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 
 import { theme } from "./colors";
 
@@ -25,7 +25,8 @@ export default function App() {
 
     // toDos를 직접 수정 X 
     // 비어있는 object + target Object + 새로운 투두 
-    const newToDos = Object.assign( {}, toDos, {[Date.now()] : {text, work : working}} );
+    // const newToDos = Object.assign( {}, toDos, {[Date.now()] : {text, work : working}} );
+    const newToDos = {...toDos, [Date.now()]: { text, work:working } }
 
     // save todo 
     setToDos(newToDos);
@@ -60,6 +61,14 @@ export default function App() {
             returnKeyType={done}
           />
       </View>
+
+      <ScrollView>
+        { Object.keys(toDos).map((key) => 
+          <View style={styles.toDo} key={key}>
+            <Text style={styles.toDoText}> toDos[key].text </Text>
+          </View>
+        ) }
+      </ScrollView>
     </View>
   );
 }
@@ -89,7 +98,21 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 30,
-    marginTop: 20,
+    marginVertical: 20,
     fontSize: 18,
+  },
+
+  toDo: {
+    backgroundColor: theme.grey,
+    marginBottom: 10,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    borderRadius: 15,
+  },
+ 
+  toDoText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "500",
   },
 });
