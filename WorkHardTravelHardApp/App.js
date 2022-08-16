@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from 
 
 import { theme } from "./colors";
 
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
+
 export default function App() {
 
   // 어떤 메뉴를 선택했는지를 담는 state  
@@ -26,7 +28,7 @@ export default function App() {
     // toDos를 직접 수정 X 
     // 비어있는 object + target Object + 새로운 투두 
     // const newToDos = Object.assign( {}, toDos, {[Date.now()] : {text, work : working}} );
-    const newToDos = {...toDos, [Date.now()]: { text, work:working } }
+    const newToDos = {...toDos, [Date.now()]: { text, working:working } }
 
     // save todo 
     setToDos(newToDos);
@@ -64,9 +66,10 @@ export default function App() {
 
       <ScrollView>
         { Object.keys(toDos).map((key) => 
-          <View style={styles.toDo} key={key}>
+          toDos[key].working === working ? ( <View style={styles.toDo} key={key}>
             <Text style={styles.toDoText}> toDos[key].text </Text>
-          </View>
+          </View> 
+          ) : null
         ) }
       </ScrollView>
     </View>
