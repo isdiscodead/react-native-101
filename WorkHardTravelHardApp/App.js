@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 
 import { theme } from "./colors";
 
 import { AsyncStorage } from '@react-native-async-storage/async-storage';
+const STORAGE_KEY = "@toDos"
 
 export default function App() {
 
@@ -19,6 +20,21 @@ export default function App() {
 
   // todos -> HashMap 사용 ... 
   const [toDos, setToDos] = useState({});
+
+  // Todo Data 저장 
+  const saveToDos = async (toSave) => {
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(toSave))
+  }
+
+  // Todo Data 불러오기
+  const loadToDos = async() => {
+    const str = await AsyncStorage.getItem(STORAGE_KEY);
+    setToDos( JSON.parse(str) );
+  }
+
+  // 앱 실행 시 실행 
+  useEffect(() => { loadToDos() }, []);
+
   // 투두 입력 버튼 핸들링 
   const addToDo = () => {
     if ( text == "" ) {
@@ -32,9 +48,12 @@ export default function App() {
 
     // save todo 
     setToDos(newToDos);
+    saveToDos(newToDos)
 
     setText(""); // 입력 창 비워주기
   }
+
+
 
   console.log(toDos);
 
