@@ -87,6 +87,7 @@ export default function App() {
         { Object.keys(toDos).map((key) => 
           toDos[key].working === working ? ( <View style={styles.toDo} key={key}>
             <Text style={styles.toDoText}> toDos[key].text </Text>
+            <Text>❌</Text>
           </View> 
           ) : null
         ) }
@@ -130,6 +131,9 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 20,
     borderRadius: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
  
   toDoText: {
