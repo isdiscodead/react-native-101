@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView, Alert } from 'react-native';
 
 import { theme } from "./colors";
 
@@ -53,6 +53,13 @@ export default function App() {
     setText(""); // 입력 창 비워주기
   }
 
+  const deleteToDo = (key) => {
+    Alert.alert("Delete To Do?", "Are you sure?", )
+    const newToDos = {...toDos};
+    delete newToDos[key];
+    setToDos(newToDos);
+    await saveToDos(newToDos);
+  }
 
 
   console.log(toDos);
@@ -87,7 +94,9 @@ export default function App() {
         { Object.keys(toDos).map((key) => 
           toDos[key].working === working ? ( <View style={styles.toDo} key={key}>
             <Text style={styles.toDoText}> toDos[key].text </Text>
-            <Text>❌</Text>
+            <TouchableOpacity onPress={() => deleteToDo(key)}>
+              <Text>❌</Text>
+            </TouchableOpacity>
           </View> 
           ) : null
         ) }
